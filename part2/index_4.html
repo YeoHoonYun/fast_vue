@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <div><my-component msg="Yun"/></div>
+        <div><my-component :msg="message"/></div>
+    </div>
+
+    <script>
+        const myComp = Vue.component('my-component', {
+            template:'<div>{{ msg }}</div>',
+            // props: ['msg'],
+            props: {
+                msg: {
+                    type: [String, Number],
+                    default: "Default",
+                    required: true,
+                    validator: function (value){
+                        return value === "Yun"
+                    }
+                }
+            },
+            data: function () {
+                return {
+                    message : "Hello Vue!"
+                }
+            }
+        })
+
+        const vm1 = new Vue({
+            el: "#app",
+            data () {
+                return {
+                    message: "Hello"
+                }
+            },
+            components: {
+                'my-component': myComp
+            }
+        })
+    </script>
+</body>
+</html>
